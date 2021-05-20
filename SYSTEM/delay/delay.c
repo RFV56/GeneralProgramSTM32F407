@@ -9,9 +9,9 @@ static u16 fac_ms = 0; //ms延时倍乘数
 //SYSCLK:系统时钟频率
 void delay_init(u8 SYSCLK)
 {
-	SysTick_CLKSourceConfig(SysTick_CLKSource_HCLK_Div8);
-	fac_us = SYSCLK / 8;		 //不论是否使用OS,fac_us都需要使用
-	fac_ms = (u16)fac_us * 1000; //每个ms需要的systick时钟数
+	SysTick_CLKSourceConfig(SysTick_CLKSource_HCLK_Div8); //SysTick计数器每减1代表过了1/21us Mhz
+	fac_us = SYSCLK / 8;								  //fac_us 表示1us所需的systick周期数 参数SysTick=168表示21个SysTick周期为1us
+	fac_ms = (u16)fac_us * 1000;						  //每个ms需要的systick周期数
 }
 
 //延时nus
